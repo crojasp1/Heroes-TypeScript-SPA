@@ -71,3 +71,10 @@ export default defineConfig([
   },
 ])
 ```
+
+# HEROES APP
+
+1. Clonar repositorio.
+2. Editar el archivo ".env" basado en el archivo ".env.template".
+3. Ejecutar "npm i".
+4. Ejecutar "npm run dev".
