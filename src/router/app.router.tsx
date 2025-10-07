@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { lazy } from "react";
 
 import HeroPage from "@/heroes/pages/hero/HeroPage";
@@ -21,7 +21,7 @@ export const appRouter = createBrowserRouter([
         element: <HomePage />
       },
         {
-        path:'heroes/1',
+        path:'heroes/:idSlug',
         element: <HeroPage />
       },
         {
@@ -29,10 +29,11 @@ export const appRouter = createBrowserRouter([
         element: <SearchPage />
       },
 
+
     ]
   },
   {
-    path: '/',
+    path: '/admin',
     element: <AdminLayout />,
     children: [
       {
