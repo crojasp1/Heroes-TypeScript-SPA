@@ -28,6 +28,10 @@ export const appRouter = createBrowserRouter([
         path:'search',
         element: <SearchPage />
       },
+      {
+        path:"*",
+        element: <Navigate to="/" />
+      }
 
 
     ]

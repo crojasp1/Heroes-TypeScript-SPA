@@ -1,13 +1,13 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Zap } from "lucide-react"
-import type { JSX, PropsWithChildren } from "react"
+import type { JSX, PropsWithChildren } from "react";
+
 
 interface Props extends PropsWithChildren{
   title: string,
   icon: JSX.Element
 }
-
 const HeroStatCard = ({title, icon, children}:Props) => {
+
   return (
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">

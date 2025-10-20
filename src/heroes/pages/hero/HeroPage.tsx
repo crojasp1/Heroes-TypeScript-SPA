@@ -1,9 +1,9 @@
 import CustomeBreadCrumbs from "@/components/custom/CustomeBreadCrumbs"
-import { useParams } from "react-router"
+//import { useParams } from "react-router"
 
 const HeroPage = () => {
 
-  const {idSlug} = useParams();
+  //const {idSlug} = useParams();
   
   
   
