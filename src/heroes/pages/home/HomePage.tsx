@@ -1,13 +1,11 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CustomJumBotron from "@/components/custom/CustomJumBotron";
-import { useSearchParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import HeroStats from "@/heroes/components/HeroStats";
 import HeroGrid from "@/heroes/components/HeroGrid";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import CustomPagination from "@/components/custom/CustomPagination";
 import CustomeBreadCrumbs from "@/components/custom/CustomeBreadCrumbs";
-import { getHeroesByPage } from "@/heroes/actions/get-heroes-by-page";
 import useHeroSummary from "@/heroes/hooks/useHeroSummary";
 import usePaginatedHero from "@/heroes/hooks/usePaginatedHero";
 
@@ -17,6 +15,7 @@ export const HomePage = () => {
   const activeTab = searchParams.get("tab") ?? "all";
   const page = searchParams.get("page") ?? "1";
   const limit = searchParams.get("limit") ?? "6";
+  const category = searchParams.get("category") ?? "all"; 
 
 
   const verifiedTab = useMemo(() => {
@@ -33,7 +32,8 @@ export const HomePage = () => {
 
   const {data: SummaryData} = useHeroSummary();
 
-  const { data: heroesResponse } = usePaginatedHero(+page, +limit);
+  const { data: heroesResponse } = usePaginatedHero(+page, +limit, category);
+
 
   // const { data: heroesResponse } = useQuery({
   //   queryKey: ["heroes", {page, limit}],
@@ -66,6 +66,8 @@ export const HomePage = () => {
               onClick={() =>
                 setSearchParams((prev) => {
                   prev.set("tab", "all");
+                  prev.set("category", "all");
+                  prev.set("page", "1");
                   return prev;
                 })
               }
@@ -89,6 +91,8 @@ export const HomePage = () => {
               onClick={() =>
                 setSearchParams((prev) => {
                   prev.set("tab", "heroes");
+                  prev.set("category", "hero")
+                  prev.set("page", "1");
                   return prev;
                 })
               }
@@ -100,6 +104,8 @@ export const HomePage = () => {
               onClick={() =>
                 setSearchParams((prev) => {
                   prev.set("tab", "villains");
+                  prev.set("category", "villain")   
+                  prev.set("page", "1");
                   return prev;
                 })
               }
@@ -114,15 +120,15 @@ export const HomePage = () => {
           </TabsContent>
           <TabsContent value="favorites">
             {/* Character Grid */}
-            <HeroGrid heroes={[]} />{" "}
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
           <TabsContent value="heroes">
             {/* Character Grid */}
-            <HeroGrid heroes={[]} />{" "}
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
-          <TabsContent value="Villains">
+          <TabsContent value="villains">
             {/* Character Grid */}
-            <HeroGrid heroes={[]} />{" "}
+            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
           </TabsContent>
         </Tabs>
 
