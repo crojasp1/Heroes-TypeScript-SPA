@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Shield, Zap, Brain, Gauge, Users, Star, Award } from "lucide-react"
-import { Navigate, useParams, useSearchParams } from "react-router"
+import { Navigate, useParams } from "react-router"
 
 import useHeroDetail from "@/heroes/hooks/useHeroDetail";
 

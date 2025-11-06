@@ -1,13 +1,14 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import CustomJumBotron from "@/components/custom/CustomJumBotron";
-import { useParams, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import HeroStats from "@/heroes/components/HeroStats";
 import HeroGrid from "@/heroes/components/HeroGrid";
-import { useMemo } from "react";
+import { use, useMemo } from "react";
 import CustomPagination from "@/components/custom/CustomPagination";
 import CustomeBreadCrumbs from "@/components/custom/CustomeBreadCrumbs";
 import useHeroSummary from "@/heroes/hooks/useHeroSummary";
 import usePaginatedHero from "@/heroes/hooks/usePaginatedHero";
+import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext";
 
 export const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,6 +30,7 @@ export const HomePage = () => {
   //   "heroes"|
   //   "villains"
   // >("all");
+  const { favoriteCount, favorites } = use(FavoriteHeroContext);
 
   const {data: SummaryData} = useHeroSummary();
 
@@ -84,7 +86,7 @@ export const HomePage = () => {
                 })
               }
             >
-              Favorites (3)
+              Favorites ({favoriteCount})
             </TabsTrigger>
             <TabsTrigger
               value="heroes"
@@ -120,7 +122,7 @@ export const HomePage = () => {
           </TabsContent>
           <TabsContent value="favorites">
             {/* Character Grid */}
-            <HeroGrid heroes={heroesResponse?.heroes ?? []} />
+            <HeroGrid heroes={favorites} />
           </TabsContent>
           <TabsContent value="heroes">
             {/* Character Grid */}
@@ -133,7 +135,10 @@ export const HomePage = () => {
         </Tabs>
 
         {/* Pagination */}
-        <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+        {(verifiedTab !== "favorites") && 
+          <CustomPagination totalPages={heroesResponse?.pages ?? 1} />
+
+        }
       </>
     </>
   );
